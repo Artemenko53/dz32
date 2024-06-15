@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import Greeting from "./Greeting";
+import "./App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [fullName, setFullName] = useState("");
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setFullName("Бред Пітт");
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setFullName("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Greeting isAuthenticated={isAuthenticated} fullName={fullName} />
+      {isAuthenticated ? (
+        <button onClick={handleLogout}>Вийти з облікового запису</button>
+      ) : (
+        <button onClick={handleLogin}>
+          Login <FontAwesomeIcon icon={faRightToBracket} />
+        </button>
+      )}
     </div>
   );
 }
